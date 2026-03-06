@@ -1,0 +1,192 @@
+# Project Setup Guide
+
+Step-by-step setup for a new developer or agent. Follow in order.
+
+______________________________________________________________________
+
+## 1. uv
+
+[uv](https://docs.astral.sh/uv/) manages the virtual environment and all dependencies.
+
+```bash
+bash scripts/setup/install-uv.sh
+```
+
+______________________________________________________________________
+
+## 2. Python 3.14+
+
+This project requires Python 3.14 or later. The version is pinned in `.python-version`. The setup script installs it automatically using the first available method: mise → uv → Homebrew.
+
+```bash
+bash scripts/setup/install-python.sh
+```
+
+______________________________________________________________________
+
+## 3. Install project dependencies
+
+From the project root:
+
+```bash
+uv sync
+```
+
+This creates `.venv/` and installs all runtime and dev dependencies, including:
+
+| Package | Purpose |
+|---|---|
+| `pytest` | Tests |
+| `ruff` | Python linting / auto-fix |
+| `mdformat` | Markdown formatting |
+| `proselint` | Markdown prose linting |
+| `basedpyright` | Static type checking (LSP) |
+| `shellcheck-py` | Shell script linting |
+| `prek` | Pre-commit hook framework |
+| `yamllint`, `yamlfix` | YAML linting / auto-fix |
+| `actionlint-py` | GitHub Actions workflow linting |
+
+______________________________________________________________________
+
+## 4. jq
+
+[jq](https://jqlang.org) is used to query and pretty-print JSON from the command line — useful for inspecting API responses, config files, and structured data.
+
+```bash
+bash scripts/setup/install-jq.sh
+```
+
+______________________________________________________________________
+
+## 5. taplo
+
+[taplo](https://taplo.tamasfe.dev) is used to format and lint `pyproject.toml` and other TOML config files. The setup script installs it automatically using the first available method: mise → Homebrew → binary download. Taplo is not available via apt.
+
+The pinned version lives in `.mise.toml` and is the single source of truth for local installs and CI. To upgrade, update `.mise.toml`.
+
+```bash
+bash scripts/setup/install-taplo.sh
+```
+
+______________________________________________________________________
+
+## 6. actionlint
+
+[actionlint](https://github.com/rhysd/actionlint) is a static checker for GitHub Actions workflow files. It validates expression syntax, action inputs/outputs, embedded shell scripts (via shellcheck), and security best practices — catching errors that yamllint misses.
+
+actionlint is installed as a Python wrapper (`actionlint-py`) via `uv sync` — no separate install step is needed. Run it via:
+
+```bash
+uv run actionlint
+```
+
+______________________________________________________________________
+
+## 7. gh (GitHub CLI)
+
+[gh](https://cli.github.com) is used to interact with GitHub — creating PRs, reviewing issues, and managing releases from the command line.
+
+```bash
+bash scripts/setup/install-gh.sh
+```
+
+After installation, authenticate with GitHub:
+
+```bash
+gh auth login
+```
+
+Recommended options:
+
+- Account type: GitHub.com
+- Protocol: SSH
+- SSH key: Generate a new SSH key (or select an existing one)
+- Auth method: Login with a web browser
+
+Then configure git to use gh as the credential helper:
+
+```bash
+gh auth setup-git
+```
+
+Verify authentication:
+
+```bash
+gh auth status
+```
+
+______________________________________________________________________
+
+## 8. Claude Code plugins
+
+Install all required plugins by running:
+
+```bash
+bash scripts/setup/install-claude-plugins.sh
+```
+
+This script:
+
+1. Adds the [`cj-cc-plugins`](https://github.com/chirgjn/claude-code-plugins) marketplace from GitHub.
+1. Installs marketplace plugins (superpowers, commit-commands, etc.) at project scope.
+1. Installs the `basedpyright-lsp` plugin from `cj-cc-plugins` — provides real-time type diagnostics and code navigation via `uv run basedpyright-langserver`. No global install needed; it uses the venv binary from `uv sync`.
+
+To install manually:
+
+```bash
+claude plugin marketplace add chirgjn/claude-code-plugins --scope project
+claude plugin install basedpyright-lsp@cj-cc-plugins --scope project
+```
+
+______________________________________________________________________
+
+## 9. Skills
+
+Skills extend Claude Code with reusable behaviours. This project uses the [`skills` CLI](https://skills.sh/) to manage them. Install skills at project level by default — use `-g` only for skills needed across all projects.
+
+Install the `playwright-cli` skill for this project (used for mermaid diagram verification — see `docs/mermaid-guidelines.md`):
+
+```bash
+pnpm dlx skills add eidam/playwright-cli --agent claude-code -y
+```
+
+To add other skills to this project:
+
+```bash
+pnpm dlx skills add <owner/repo> --agent claude-code -y
+```
+
+Note: `playwright-cli` also requires the binary to be installed. Install pnpm first via the official script:
+
+```bash
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+```
+
+Then install the binary:
+
+```bash
+pnpm add -g playwright-cli
+```
+
+______________________________________________________________________
+
+## Hooks
+
+Linting hooks fire automatically during Claude Code sessions. See `docs/hooks.md` for what runs, when, and how to unblock yourself if ruff fails.
+
+______________________________________________________________________
+
+## Verify everything
+
+```bash
+jq --version                   # jq available
+taplo --version                # taplo available
+taplo lint pyproject.toml      # pyproject.toml is valid
+gh auth status                 # gh authenticated
+uv run pytest tests/           # tests pass
+uv run ruff check src/ tests/  # no Python lint errors
+uv run basedpyright            # no type errors
+uv run shellcheck -x --source-path=scripts/setup scripts/*.sh scripts/setup/*.sh scripts/tools/*.sh  # no shell lint errors
+uv run yamllint .pre-commit-config.yaml  # YAML files valid
+uv run actionlint                        # GitHub Actions workflows valid
+```

@@ -1,0 +1,5 @@
+[tools]
+taplo = "0.10.0"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]

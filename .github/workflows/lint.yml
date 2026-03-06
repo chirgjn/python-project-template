@@ -1,0 +1,148 @@
+---
+name: Lint
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - run: uv python install ">=3.14"
+      - run: uv sync
+
+      - name: ruff
+        if: always()
+        continue-on-error: true
+        shell: bash --noprofile --norc -o pipefail {0}
+        run: |
+          uv run ruff check src/ tests/ 2>&1 | tee /tmp/ruff.log
+          echo "${PIPESTATUS[0]}" > /tmp/ruff.exitcode
+
+      - name: basedpyright
+        if: always()
+        continue-on-error: true
+        shell: bash --noprofile --norc -o pipefail {0}
+        run: |
+          uv run basedpyright 2>&1 | tee /tmp/basedpyright.log
+          echo "${PIPESTATUS[0]}" > /tmp/basedpyright.exitcode
+
+      - name: mdformat
+        if: always()
+        continue-on-error: true
+        shell: bash --noprofile --norc -o pipefail {0}
+        run: |
+          uv run mdformat --check docs/ -- *.md 2>&1 | tee /tmp/mdformat.log
+          echo "${PIPESTATUS[0]}" > /tmp/mdformat.exitcode
+
+      - name: pytest
+        if: always()
+        continue-on-error: true
+        shell: bash --noprofile --norc -o pipefail {0}
+        run: |
+          uv run pytest tests/ 2>&1 | tee /tmp/pytest.log
+          echo "${PIPESTATUS[0]}" > /tmp/pytest.exitcode
+
+      - name: shellcheck
+        if: always()
+        continue-on-error: true
+        shell: bash --noprofile --norc -o pipefail {0}
+        run: |
+          uv run shellcheck -x --source-path=scripts/setup \
+            scripts/*.sh scripts/setup/*.sh scripts/tools/*.sh \
+            2>&1 | tee /tmp/shellcheck.log
+          echo "${PIPESTATUS[0]}" > /tmp/shellcheck.exitcode
+
+      - name: yamllint
+        if: always()
+        continue-on-error: true
+        shell: bash --noprofile --norc -o pipefail {0}
+        run: |
+          mapfile -t YAML_FILES < <(find . \( -name '*.yaml' -o -name '*.yml' \) -not -path './.venv/*')
+          uv run yamllint "${YAML_FILES[@]}" 2>&1 | tee /tmp/yamllint.log
+          echo "${PIPESTATUS[0]}" > /tmp/yamllint.exitcode
+
+      - name: actionlint
+        if: always()
+        continue-on-error: true
+        shell: bash --noprofile --norc -o pipefail {0}
+        run: |
+          uv run actionlint 2>&1 | tee /tmp/actionlint.log
+          echo "${PIPESTATUS[0]}" > /tmp/actionlint.exitcode
+
+      - name: taplo (read version)
+        id: taplo-version
+        run: |
+          VERSION="$(grep -m1 'taplo' .mise.toml | grep -o '[0-9][0-9.]*')"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: taplo (restore cache)
+        uses: actions/cache@v5
+        with:
+          path: .local/bin/taplo
+          key: taplo-${{ runner.os }}-${{ steps.taplo-version.outputs.version }}
+
+      - name: taplo
+        if: always()
+        continue-on-error: true
+        shell: bash --noprofile --norc -o pipefail {0}
+        env:
+          TAPLO_VERSION: ${{ steps.taplo-version.outputs.version }}
+        run: |
+          export PATH="${PWD}/.local/bin:${PATH}"
+          if ! command -v taplo &>/dev/null; then
+            mkdir -p .local/bin
+            curl -fsSL "https://github.com/tamasfe/taplo/releases/download/${TAPLO_VERSION}/taplo-linux-x86_64.gz" \
+              | gunzip > .local/bin/taplo
+            chmod +x .local/bin/taplo
+          fi
+          find . -name '*.toml' -not -path './.venv/*' -exec taplo lint {} + 2>&1 | tee /tmp/taplo.log
+          echo "${PIPESTATUS[0]}" > /tmp/taplo.exitcode
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## CI Results"
+            echo ""
+            echo "| Check | Status |"
+            echo "|-------|--------|"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          FAILED=0
+          for check in ruff basedpyright mdformat pytest shellcheck yamllint actionlint taplo; do
+            code=$(cat "/tmp/${check}.exitcode" 2>/dev/null || echo "?")
+            if [ "$code" = "0" ]; then
+              echo "| ${check} | :white_check_mark: pass |" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "| ${check} | :x: fail |" >> "$GITHUB_STEP_SUMMARY"
+              FAILED=1
+            fi
+          done
+
+          # Show output for failed checks
+          for check in ruff basedpyright mdformat pytest shellcheck yamllint actionlint taplo; do
+            code=$(cat "/tmp/${check}.exitcode" 2>/dev/null || echo "?")
+            if [ "$code" != "0" ]; then
+              {
+                echo ""
+                echo "<details><summary>${check} output</summary>"
+                echo ""
+                echo '```'
+                tail -50 "/tmp/${check}.log"
+                echo '```'
+                echo "</details>"
+              } >> "$GITHUB_STEP_SUMMARY"
+            fi
+          done
+
+          exit "$FAILED"

@@ -1,0 +1,34 @@
+[project]
+name = "my-project"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = []
+
+# [build-system]
+# Choose a build backend for your project and uncomment.
+# For a src/ layout with uv:
+#   requires = ["uv_build>=0.10.0,<0.11.0"]
+#   build-backend = "uv_build"
+# For hatchling (add [tool.hatch.build.targets.wheel] packages = ["src/<pkg>"]):
+#   requires = ["hatchling"]
+#   build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+  "basedpyright>=1.38.2",
+  "mdformat>=1.0.0",
+  "pytest>=9.0.2",
+  "pytest-cov>=7.0.0",
+  "proselint>=0.16.0",
+  "ruff>=0.15.4",
+  "shellcheck-py>=0.11.0.1",
+  "prek>=0.3.4",
+  "yamllint==1.38.0",
+  "yamlfix>=0.16.0",
+  "actionlint-py>=1.7.11",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "scripts"]
