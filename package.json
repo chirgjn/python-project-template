@@ -2,6 +2,7 @@
   "name": "python-project-template",
   "private": true,
   "devDependencies": {
+    "@playwright/cli": "latest",
     "prettier": "^3.0.0"
   },
   "engines": {

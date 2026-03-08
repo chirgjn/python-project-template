@@ -9,13 +9,14 @@ Markdown files in a project with multiple contributors (human and AI agent) drif
 
 ## Decision
 
-We use [prettier](https://prettier.io) to format Markdown files. prettier runs on every `.md` write via the Claude Code PostToolUse hook and on every git commit via the prek pre-commit hook. It is installed globally via pnpm (`pnpm add -g prettier`).
+We use [prettier](https://prettier.io) to format Markdown files. prettier runs on every `.md` write via the Claude Code PostToolUse hook and on every git commit via the prek pre-commit hook. It is declared as a devDependency in `package.json` and installed locally via `pnpm install` — no global install required. The binary lives at `node_modules/.bin/prettier` and is invoked via `pnpm exec prettier`.
 
 ## Consequences
 
 - Markdown formatting is consistent across all files and contributors
 - prettier's Markdown rules are stable and well-documented
-- Requires pnpm and a global prettier install — additional setup step documented in `docs/project-setup.md`
+- Requires pnpm (installed via `scripts/setup/install-pnpm.sh`) and `pnpm install` — no global prettier install needed
+- prettier version is pinned in `pnpm-lock.yaml` — consistent across all contributors and CI
 - prettier reformats tables, lists, and headings opinionatedly — some formatting preferences must yield to its rules
 - CI runs `prettier --check` in verify mode (no rewrite) as the enforcement backstop
 

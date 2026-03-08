@@ -1,4 +1,5 @@
 [tools]
+pnpm = "latest"
 taplo = "0.10.0"
 
 [settings]

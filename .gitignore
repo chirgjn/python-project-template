@@ -35,6 +35,12 @@ env/
 # Playwright CLI
 .playwright-cli/
 
+# Node
+node_modules/
+
+# Claude Code generated skills (installed by scripts/setup/install-skills.sh)
+.claude/skills/playwright-cli/
+
 # Editors
 .idea/
 .vscode/

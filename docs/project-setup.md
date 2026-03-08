@@ -141,31 +141,11 @@ claude plugin install basedpyright-lsp@cj-cc-plugins --scope project
 
 ## 9. Skills
 
-Skills extend Claude Code with reusable behaviours. This project uses the [`skills` CLI](https://skills.sh/) to manage them. Install skills at project level by default — use `-g` only for skills needed across all projects.
-
-Install the `playwright-cli` skill for this project (used for mermaid diagram verification — see `docs/mermaid-guidelines.md`):
-
 ```bash
-pnpm dlx skills add eidam/playwright-cli --agent claude-code -y
+bash scripts/setup/install-skills.sh
 ```
 
-To add other skills to this project:
-
-```bash
-pnpm dlx skills add <owner/repo> --agent claude-code -y
-```
-
-Note: `playwright-cli` also requires the binary to be installed. Install pnpm first via the official script:
-
-```bash
-curl -fsSL https://get.pnpm.io/install.sh | sh -
-```
-
-Then install the binary:
-
-```bash
-pnpm add -g playwright-cli
-```
+This installs the `playwright-cli` skill (used for mermaid diagram verification — see `docs/mermaid-guidelines.md`) via the binary already installed in `node_modules/.bin/playwright-cli`.
 
 ---
 
