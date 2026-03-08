@@ -11,6 +11,7 @@ fi
 case "$FILE" in
     *.py)
         scripts/tools/ruff-fix.sh "$FILE"
+        scripts/tools/basedpyright-lint.sh
         ;;
     *.md)
         scripts/tools/prettier-fix.sh "$FILE"

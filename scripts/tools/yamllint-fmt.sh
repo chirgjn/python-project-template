@@ -5,7 +5,8 @@ set -euo pipefail
 # Note: yamlfix is skipped for .github/ files — it cannot safely reformat GHA workflows.
 if [ $# -eq 0 ]; then
     mapfile -t TARGETS < <(find . \( -name '*.yaml' -o -name '*.yml' \) \
-        -not -path './.venv/*' -not -path './.git/*')
+        -not -path './.venv/*' -not -path './.git/*' -not -path './node_modules/*' \
+        -not -name 'pnpm-lock.yaml')
 else
     TARGETS=("$@")
 fi
