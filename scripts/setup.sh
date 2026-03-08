@@ -36,7 +36,7 @@ run_step "9. prettier"        "$SETUP/install-prettier.sh"
 run_step "10. playwright-cli" "$SETUP/install-playwright-cli.sh"
 run_step "11. Claude plugins" "$SETUP/install-claude-plugins.sh"
 run_step "12. Skills"         "$SETUP/install-skills.sh"
-run_step "13. Verify"         "$SETUP/verify.sh"
+run_step "13. Verify"         "$SETUP/verify-setup.sh"
 
 echo ""
 echo "  ✓ Setup complete."

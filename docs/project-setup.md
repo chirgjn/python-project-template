@@ -38,7 +38,6 @@ This creates `.venv/` and installs all runtime and dev dependencies, including:
 | --------------------- | ------------------------------- |
 | `pytest`              | Tests                           |
 | `ruff`                | Python linting / auto-fix       |
-| `prettier`            | Markdown formatting (via pnpm)  |
 | `basedpyright`        | Static type checking (LSP)      |
 | `shellcheck-py`       | Shell script linting            |
 | `prek`                | Pre-commit hook framework       |
@@ -116,7 +115,26 @@ gh auth status
 
 ---
 
-## 8. Claude Code plugins
+## 8. pnpm
+
+[pnpm](https://pnpm.io) manages Node devDependencies (prettier, @playwright/cli). The setup script
+installs pnpm using the first available method: mise → Homebrew (macOS only) → native installer.
+When installed via mise, `pnpm = "latest"` is written to `.mise.toml` (project-scoped).
+
+```bash
+bash scripts/setup/install-pnpm.sh
+```
+
+Then install Node devDependencies:
+
+```bash
+bash scripts/setup/install-prettier.sh
+bash scripts/setup/install-playwright-cli.sh
+```
+
+---
+
+## 9. Claude Code plugins
 
 Install all required plugins by running:
 
@@ -139,7 +157,7 @@ claude plugin install basedpyright-lsp@cj-cc-plugins --scope project
 
 ---
 
-## 9. Skills
+## 10. Skills
 
 ```bash
 bash scripts/setup/install-skills.sh

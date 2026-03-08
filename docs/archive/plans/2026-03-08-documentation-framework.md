@@ -13,6 +13,7 @@
 ## Task 1: Fix `layout.md` frontmatter
 
 **Files:**
+
 - Modify: `layout.md`
 
 The framework requires every `layout.md` to open with YAML frontmatter containing a `docs:` field. Without it, framework scripts fail fast.
@@ -49,6 +50,7 @@ git commit -m "docs: add required YAML frontmatter to layout.md"
 ## Task 2: Create `docs/decisions/` with index stub
 
 **Files:**
+
 - Create: `docs/decisions/index.md`
 
 **Step 1: Create the index stub**
@@ -58,13 +60,13 @@ git commit -m "docs: add required YAML frontmatter to layout.md"
 
 Decisions that shaped this template — tool choices, architectural patterns, and non-obvious constraints.
 
-| ADR | Title | Status |
-| --- | ----- | ------ |
-| [001](001-uv-package-manager.md) | Use uv as package and environment manager | Accepted |
-| [002](002-ruff-linter-formatter.md) | Use ruff for linting and formatting | Accepted |
-| [003](003-basedpyright-type-checker.md) | Use basedpyright for type checking | Accepted |
-| [004](004-prek-git-hooks.md) | Use prek for git hook management | Accepted |
-| [005](005-prettier-markdown.md) | Use prettier for Markdown formatting | Accepted |
+| ADR                                        | Title                                                   | Status   |
+| ------------------------------------------ | ------------------------------------------------------- | -------- |
+| [001](001-uv-package-manager.md)           | Use uv as package and environment manager               | Accepted |
+| [002](002-ruff-linter-formatter.md)        | Use ruff for linting and formatting                     | Accepted |
+| [003](003-basedpyright-type-checker.md)    | Use basedpyright for type checking                      | Accepted |
+| [004](004-prek-git-hooks.md)               | Use prek for git hook management                        | Accepted |
+| [005](005-prettier-markdown.md)            | Use prettier for Markdown formatting                    | Accepted |
 | [006](006-dual-layer-hook-architecture.md) | Dual-layer hook architecture (prek + Claude Code hooks) | Accepted |
 
 Add new ADRs here as project-specific decisions are made. Use sequential three-digit prefixes.
@@ -82,6 +84,7 @@ git commit -m "docs: add decisions/ index stub"
 ## Task 3: Write ADR 001 — uv
 
 **Files:**
+
 - Create: `docs/decisions/001-uv-package-manager.md`
 
 **Step 1: Write the ADR**
@@ -127,6 +130,7 @@ git commit -m "docs: add ADR 001 — uv as package manager"
 ## Task 4: Write ADR 002 — ruff
 
 **Files:**
+
 - Create: `docs/decisions/002-ruff-linter-formatter.md`
 
 **Step 1: Write the ADR**
@@ -172,6 +176,7 @@ git commit -m "docs: add ADR 002 — ruff for linting and formatting"
 ## Task 5: Write ADR 003 — basedpyright
 
 **Files:**
+
 - Create: `docs/decisions/003-basedpyright-type-checker.md`
 
 **Step 1: Write the ADR**
@@ -217,6 +222,7 @@ git commit -m "docs: add ADR 003 — basedpyright for type checking"
 ## Task 6: Write ADR 004 — prek
 
 **Files:**
+
 - Create: `docs/decisions/004-prek-git-hooks.md`
 
 **Step 1: Write the ADR**
@@ -264,6 +270,7 @@ git commit -m "docs: add ADR 004 — prek for git hook management"
 ## Task 7: Write ADR 005 — prettier
 
 **Files:**
+
 - Create: `docs/decisions/005-prettier-markdown.md`
 
 **Step 1: Write the ADR**
@@ -309,6 +316,7 @@ git commit -m "docs: add ADR 005 — prettier for Markdown formatting"
 ## Task 8: Write ADR 006 — dual-layer hook architecture
 
 **Files:**
+
 - Create: `docs/decisions/006-dual-layer-hook-architecture.md`
 
 **Step 1: Write the ADR**
@@ -367,6 +375,7 @@ git commit -m "docs: add ADR 006 — dual-layer hook architecture"
 ## Task 9: Create stub directories for plans, designs, specs, archive
 
 **Files:**
+
 - Create: `docs/plans/index.md`
 - Create: `docs/designs/index.md`
 - Create: `docs/specs/index.md`
@@ -429,6 +438,7 @@ Specs in `in-progress/` are being written alongside active implementation.
 **Step 4: Create `.gitkeep` files for empty directories**
 
 Create empty `.gitkeep` files in:
+
 - `docs/specs/live/`
 - `docs/specs/in-progress/`
 - `docs/archive/decisions/`
@@ -451,6 +461,7 @@ git commit -m "docs: add framework directory structure with stubs"
 ## Task 10: Rewrite `docs/maintenance.md`
 
 **Files:**
+
 - Modify: `docs/maintenance.md`
 
 **Step 1: Read the current file**
@@ -475,12 +486,13 @@ When making structural changes, keep these documents updated. Update docs in the
 ## Enforcement Hierarchy
 
 Prefer mechanisms higher on this list — each level down drifts more:
-
 ```
-1. Linter rules  — ruff, basedpyright (auto-enforced, zero drift)
-2. Hooks         — prek pre-commit, Claude Code PostToolUse (auto-format on write/commit)
-3. CI checks     — GitHub Actions lint.yml (catches what hooks miss)
+
+1. Linter rules — ruff, basedpyright (auto-enforced, zero drift)
+2. Hooks — prek pre-commit, Claude Code PostToolUse (auto-format on write/commit)
+3. CI checks — GitHub Actions lint.yml (catches what hooks miss)
 4. Written rules — AGENTS.md, docs/ (last resort — requires humans to read)
+
 ```
 
 Before writing a convention, ask: "Can a tool enforce this instead?"
@@ -539,6 +551,7 @@ git commit -m "docs: rewrite maintenance.md to framework format"
 ## Task 11: Update `AGENTS.md` routing table
 
 **Files:**
+
 - Modify: `AGENTS.md`
 
 **Step 1: Read the current routing table**
@@ -550,8 +563,8 @@ Read `AGENTS.md` lines 33–55 to see the current routing table.
 Add these two rows to the routing table (after the `docs/maintenance.md` entry):
 
 ```markdown
-| Browsing architectural decisions and tool choices       | `docs/decisions/index.md`               |
-| Finding or tracking an active implementation plan       | `docs/plans/index.md`                   |
+| Browsing architectural decisions and tool choices | `docs/decisions/index.md` |
+| Finding or tracking an active implementation plan | `docs/plans/index.md` |
 ```
 
 **Step 3: Verify line count stays under 80**
@@ -570,6 +583,7 @@ git commit -m "docs: add decisions and plans routing entries to AGENTS.md"
 ## Task 12: Update `layout.md` Contents section
 
 **Files:**
+
 - Modify: `layout.md`
 
 **Step 1: Read the current Contents section**
@@ -614,6 +628,7 @@ git commit -m "docs: update layout.md Contents to include new docs directories"
 ## Task 13: Update `docs/plans/index.md` with this plan
 
 **Files:**
+
 - Modify: `docs/plans/index.md`
 
 **Step 1: Add this plan to the index**

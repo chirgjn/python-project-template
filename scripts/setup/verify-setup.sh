@@ -57,7 +57,7 @@ info "running ruff..."
 if ! uv run ruff check src/ tests/; then
     fail "Ruff found lint errors.
        Auto-fix where possible with: uv run ruff check --fix src/ tests/
-       Then re-run verification: bash scripts/setup/verify.sh"
+       Then re-run verification: bash scripts/setup/verify-setup.sh"
 fi
 ok "no lint errors"
 

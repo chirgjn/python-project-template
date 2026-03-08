@@ -28,7 +28,7 @@ bash scripts/setup.sh
 | `install-playwright-cli.sh` | playwright-cli — used for Mermaid diagram verification                    |
 | `install-claude-plugins.sh` | Claude Code plugins (superpowers, basedpyright-lsp, etc.)                 |
 | `install-skills.sh`         | Claude Code skills (playwright-cli skill)                                 |
-| `verify.sh`                 | Runs pytest, ruff, shellcheck, yamllint, actionlint to confirm setup      |
+| `verify-setup.sh`           | Runs pytest, ruff, shellcheck, yamllint, actionlint to confirm setup      |
 
 ### Linter/hook scripts (`scripts/tools/`)
 
@@ -62,20 +62,20 @@ Wrappers invoked by Claude Code hooks and git pre-commit hooks:
 
 **Reference guides**
 
-| Doc                                | Contents                                                          |
-| ---------------------------------- | ----------------------------------------------------------------- |
-| `project-setup.md`                 | Step-by-step setup guide                                          |
-| `hooks.md`                         | Claude Code hooks, git hooks, and CI enforcement                  |
-| `basedpyright.md`                  | Type checking config, error fixing, baseline usage                |
-| `commands.md`                      | Quick reference for common commands                               |
-| `architecture.md`                  | Module layout template, dependency rules, and conventions         |
-| `pr-process.md`                    | PR artefact paths at a glance                                     |
-| `pr-review-guide.md`               | Full review workflow — rounds, frontmatter, artefacts, checklists |
-| `prd-guide.md`                     | PRD update workflow and bump script usage                         |
-| `plans-guide.md`                   | When and how to write implementation plans                        |
-| `mermaid-guidelines.md`            | Diagram palette, syntax rules, and verification workflow          |
-| `playwright-cli-guidelines.md`     | Session artifact cleanup                                          |
-| `maintenance.md`                   | Update triggers and auditing checklist for keeping docs current   |
+| Doc                            | Contents                                                          |
+| ------------------------------ | ----------------------------------------------------------------- |
+| `project-setup.md`             | Step-by-step setup guide                                          |
+| `hooks.md`                     | Claude Code hooks, git hooks, and CI enforcement                  |
+| `basedpyright.md`              | Type checking config, error fixing, baseline usage                |
+| `commands.md`                  | Quick reference for common commands                               |
+| `architecture.md`              | Module layout template, dependency rules, and conventions         |
+| `pr-process.md`                | PR artefact paths at a glance                                     |
+| `pr-review-guide.md`           | Full review workflow — rounds, frontmatter, artefacts, checklists |
+| `prd-guide.md`                 | PRD update workflow and bump script usage                         |
+| `plans-guide.md`               | When and how to write implementation plans                        |
+| `mermaid-guidelines.md`        | Diagram palette, syntax rules, and verification workflow          |
+| `playwright-cli-guidelines.md` | Session artifact cleanup                                          |
+| `maintenance.md`               | Update triggers and auditing checklist for keeping docs current   |
 
 **Python conventions (`python-guide/`)**
 
@@ -91,13 +91,13 @@ Wrappers invoked by Claude Code hooks and git pre-commit hooks:
 
 **Decisions, plans, and specs**
 
-| Directory        | Contents                                                                  |
-| ---------------- | ------------------------------------------------------------------------- |
-| `decisions/`     | Architectural Decision Records — tool choices and non-obvious constraints |
-| `plans/`         | Active implementation plans (archived to `archive/plans/` after completion) |
-| `designs/`       | Design docs — problem, alternatives, recommendation (pre-approval)        |
-| `specs/`         | Exhaustive specifications (`live/` and `in-progress/`)                    |
-| `archive/`       | Post-merge artifacts — completed plans, deprecated designs, old specs     |
+| Directory    | Contents                                                                    |
+| ------------ | --------------------------------------------------------------------------- |
+| `decisions/` | Architectural Decision Records — tool choices and non-obvious constraints   |
+| `plans/`     | Active implementation plans (archived to `archive/plans/` after completion) |
+| `designs/`   | Design docs — problem, alternatives, recommendation (pre-approval)          |
+| `specs/`     | Exhaustive specifications (`live/` and `in-progress/`)                      |
+| `archive/`   | Post-merge artifacts — completed plans, deprecated designs, old specs       |
 
 ### `scripts/bump_prd.py`
 

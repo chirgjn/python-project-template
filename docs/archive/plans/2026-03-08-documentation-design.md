@@ -66,6 +66,7 @@ Add two entries:
 ### 4. docs/maintenance.md rewrite
 
 Three additions to the current file:
+
 - Enforcement hierarchy (linters → hooks → CI → written rules)
 - Full update triggers table including decisions, plans, specs, designs, archive operations
 - Auditing checklist

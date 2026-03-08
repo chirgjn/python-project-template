@@ -17,7 +17,7 @@ Run individual scripts as needed, or run `bash scripts/setup.sh` to execute all 
 | `install-playwright-cli.sh` | Install `playwright-cli` globally via pnpm                                                                                                                                                                          | `install-pnpm.sh`                    |
 | `install-claude-plugins.sh` | Add the `cj-cc-plugins` marketplace and install all Claude Code plugins                                                                                                                                             | Claude Code CLI                      |
 | `install-skills.sh`         | Install required Claude Code skills at project level via `pnpm dlx skills`                                                                                                                                          | —                                    |
-| `verify.sh`                 | Run pytest, ruff, and shellcheck to confirm the setup works                                                                                                                                                         | `install-deps.sh`                    |
+| `verify-setup.sh`           | Run pytest, ruff, and shellcheck to confirm the setup works                                                                                                                                                         | `install-deps.sh`                    |
 
 ## Dependencies
 
@@ -25,7 +25,7 @@ Run individual scripts as needed, or run `bash scripts/setup.sh` to execute all 
 install-uv.sh
 ├── install-python.sh
 │   └── install-deps.sh
-│       └── verify.sh
+│       └── verify-setup.sh
 install-jq.sh               (standalone)
 install-taplo.sh            (standalone)
 install-yamllint.sh         (requires install-deps.sh)
@@ -62,5 +62,5 @@ bash scripts/setup/install-claude-plugins.sh
 **Verify existing setup:**
 
 ```bash
-bash scripts/setup/verify.sh
+bash scripts/setup/verify-setup.sh
 ```
