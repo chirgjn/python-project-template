@@ -11,6 +11,11 @@ Repo root for the Python project template. Read this file to orient before touch
 ```
 docs/                 — all project documentation and guides
   python-guide/       — Python coding conventions (naming, types, style, tests, uv)
+  decisions/          — Architectural Decision Records (tool choices, patterns)
+  plans/              — Active implementation plans (archive after completion)
+  designs/            — Design docs (live until deprecated or rejected)
+  specs/              — Exhaustive specifications (live/ and in-progress/)
+  archive/            — Post-merge artifacts (plans, designs, specs, pr-reviews)
   architecture.md     — module layout and dependency decisions
   commands.md         — quick-reference for lint, test, type-check commands
   hooks.md            — Claude Code and git hook configuration
@@ -22,6 +27,7 @@ docs/                 — all project documentation and guides
   basedpyright.md     — basedpyright config and suppression rules
   mermaid-guidelines.md — diagram conventions
   playwright-cli-guidelines.md — Playwright usage
+  maintenance.md      — living docs checklist: what to update and when
 
 scripts/              — developer tooling scripts
   setup/              — environment setup scripts
@@ -36,7 +42,8 @@ pyrightconfig.json    — basedpyright configuration
 ## What Lives Here
 
 - `layout.md` (this file) — structural map for the repo
-- `CLAUDE.md` — Claude Code instructions and guides reference
+- `AGENTS.md` — canonical agent instructions (identity, structure, commands, conventions, routing)
+- `CLAUDE.md -> AGENTS.md` — symlink for Claude Code
 - `pyproject.toml` — single source of truth for dependencies and tool config
 - `pyrightconfig.json` — type checker config
 
