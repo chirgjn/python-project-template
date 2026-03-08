@@ -2,7 +2,7 @@
 
 This document describes the review workflow used in this project. Every non-trivial PR produces a consistent set of artefacts so that decisions, findings, and fixes are traceable across multiple rounds of review.
 
-______________________________________________________________________
+---
 
 ## The Workflow
 
@@ -33,7 +33,7 @@ flowchart TD
     LOOP -->|"No"| MERGE
 ```
 
-______________________________________________________________________
+---
 
 ## Folder Structure
 
@@ -56,7 +56,7 @@ docs/pr-reviews/
 - The **analysis** section (what the PR does) belongs in `round-1/review.md` only. Later rounds skip it and go straight to findings.
 - Reviewer and fixer are tracked **per round** in the round's frontmatter, not at the PR level.
 
-______________________________________________________________________
+---
 
 ## Frontmatter
 
@@ -99,19 +99,19 @@ Do not link to living docs (e.g. `docs/architecture/modules.md`) from fixes.md �
 
 For later rounds, only `round`, `fixes_by`, `date`, and `fix_commits` change.
 
-______________________________________________________________________
+---
 
 ## Artefacts Summary
 
-| Artefact | Path | Produced by | When |
+| Artefact                | Path                                         | Produced by | When                    |
 | ----------------------- | -------------------------------------------- | ----------- | ----------------------- |
-| Analysis + findings | `docs/pr-reviews/pr-{N}/round-1/review.md` | Reviewer | Before any fixes |
-| Findings (later rounds) | `docs/pr-reviews/pr-{N}/round-{R}/review.md` | Reviewer | After each fix round |
-| Fixes | `docs/pr-reviews/pr-{N}/round-{R}/fixes.md` | Fixer | After each review round |
-| Plan | `docs/plans/{date}-{topic}.md` | Anyone | Before implementation |
-| Living docs | (updated in place) | Fixer | After fixes applied |
+| Analysis + findings     | `docs/pr-reviews/pr-{N}/round-1/review.md`   | Reviewer    | Before any fixes        |
+| Findings (later rounds) | `docs/pr-reviews/pr-{N}/round-{R}/review.md` | Reviewer    | After each fix round    |
+| Fixes                   | `docs/pr-reviews/pr-{N}/round-{R}/fixes.md`  | Fixer       | After each review round |
+| Plan                    | `docs/plans/{date}-{topic}.md`               | Anyone      | Before implementation   |
+| Living docs             | (updated in place)                           | Fixer       | After fixes applied     |
 
-______________________________________________________________________
+---
 
 ## Round 1 — Analysis + First Review
 
@@ -127,11 +127,11 @@ Round 1 is the only round that includes a full **analysis** section. Subsequent 
 
 ### Findings section — open with a summary table:
 
-| Severity | # | Finding |
-|---|---|---|
-| Critical | 1 | Short title |
-| Important | 2 | Short title |
-| Minor | 3 | Short title |
+| Severity  | #   | Finding     |
+| --------- | --- | ----------- |
+| Critical  | 1   | Short title |
+| Important | 2   | Short title |
+| Minor     | 3   | Short title |
 
 Then for each finding include:
 
@@ -141,11 +141,11 @@ Then for each finding include:
 - How to fix it (if not obvious)
 - Severity: **Critical**, **Important**, or **Minor**
 
-| Severity | Meaning |
+| Severity  | Meaning                                                             |
 | --------- | ------------------------------------------------------------------- |
-| Critical | Will crash or corrupt data in production |
-| Important | Bug, wrong behaviour, or violation of a living doc convention |
-| Minor | Hygiene — no functional impact, creates future maintenance friction |
+| Critical  | Will crash or corrupt data in production                            |
+| Important | Bug, wrong behaviour, or violation of a living doc convention       |
+| Minor     | Hygiene — no functional impact, creates future maintenance friction |
 
 ### What is not a finding:
 
@@ -153,7 +153,7 @@ Then for each finding include:
 - Things a linter or type checker catches automatically
 - Style preferences not backed by `docs/python-guide/`
 
-______________________________________________________________________
+---
 
 ## Fix Rounds
 
@@ -171,11 +171,11 @@ Structure:
 
 **Final State** (last fix round only): metrics table showing net change from original to end state.
 
-| Metric | Before | After |
+| Metric         | Before | After |
 | -------------- | ------ | ----- |
-| Source modules | … | … |
-| Tests | … | … |
-| Open findings | … | 0 |
+| Source modules | …      | …     |
+| Tests          | …      | …     |
+| Open findings  | …      | 0     |
 
 Example diff block:
 
@@ -189,7 +189,7 @@ Example diff block:
 ```
 ````
 
-______________________________________________________________________
+---
 
 ## Later Review Rounds
 
@@ -199,7 +199,7 @@ Same structure as round 1 but **without the analysis section**. The frontmatter 
 
 Only findings introduced or uncovered since the last fix round are listed — do not repeat resolved findings.
 
-______________________________________________________________________
+---
 
 ## Plan
 
@@ -214,20 +214,20 @@ Include:
 - Risk notes (edge cases, breakage potential, rollback strategy)
 - Reference to relevant living docs
 
-______________________________________________________________________
+---
 
 ## Updating Living Docs
 
 After every fix round, update as needed:
 
-| Document | Update when |
-| ------------------------------ | -------------------------------------------------------------- |
+| Document             | Update when                                                  |
+| -------------------- | ------------------------------------------------------------ |
 | `docs/python-guide/` | New project-wide coding convention established during review |
-| `CLAUDE.md` | Anything that changes how to navigate or work in the repo |
+| `CLAUDE.md`          | Anything that changes how to navigate or work in the repo    |
 
 **Rule:** if you had to look something up during review that wasn't in any living doc, add it before closing the round.
 
-______________________________________________________________________
+---
 
 ## Commits
 
@@ -240,7 +240,7 @@ docs: <what was documented>          ← artefacts + living doc updates
 
 Each commit message should be self-contained — a future reader running `git log` should understand what happened without reading the diff.
 
-______________________________________________________________________
+---
 
 ## Quick Checklist — Per Round
 

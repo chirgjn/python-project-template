@@ -16,10 +16,10 @@ Always invoke Python through `uv run` — never call `python` or `python3` direc
 
 ## Antipatterns to avoid
 
-| Antipattern | Why | Use instead |
-| ----------- | --- | ----------- |
-| `python3 -c '...'` | Bypasses the uv-managed environment | `uv run -` with a heredoc |
-| `python -c '...'` | Bypasses the uv-managed environment | `uv run -` with a heredoc |
+| Antipattern              | Why                                                       | Use instead                                    |
+| ------------------------ | --------------------------------------------------------- | ---------------------------------------------- |
+| `python3 -c '...'`       | Bypasses the uv-managed environment                       | `uv run -` with a heredoc                      |
+| `python -c '...'`        | Bypasses the uv-managed environment                       | `uv run -` with a heredoc                      |
 | `uv run python -c '...'` | Inline strings are hard to read and have quoting pitfalls | `uv run -` with a heredoc, or write to `/tmp/` |
-| `uv run -c '...'` | Same as above | `uv run -` with a heredoc, or write to `/tmp/` |
-| `python3 script.py` | Bypasses the uv-managed environment | `uv run script.py` |
+| `uv run -c '...'`        | Same as above                                             | `uv run -` with a heredoc, or write to `/tmp/` |
+| `python3 script.py`      | Bypasses the uv-managed environment                       | `uv run script.py`                             |

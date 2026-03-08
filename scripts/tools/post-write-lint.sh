@@ -13,8 +13,7 @@ case "$FILE" in
         scripts/tools/ruff-fix.sh "$FILE"
         ;;
     *.md)
-        scripts/tools/mdformat-fix.sh "$FILE"
-        scripts/tools/proselint-warn.sh "$FILE"
+        scripts/tools/prettier-fix.sh "$FILE"
         ;;
     *.sh)
         scripts/tools/shellcheck-lint.sh "$FILE"

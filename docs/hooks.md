@@ -6,12 +6,12 @@ Two categories of hooks are active in this project, plus an LSP plugin.
 
 Configured in `.claude/settings.json` (shared, checked into the repo). Scripts live in `scripts/tools/`.
 
-| Hook | Trigger | Script | Behaviour |
-|---|---|---|---|
-| PreToolUse | `Bash` tool | `block-no-verify.sh` | Blocks `git commit --no-verify` so pre-commit hooks always run. |
+| Hook        | Trigger                | Script               | Behaviour                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ----------- | ---------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PreToolUse  | `Bash` tool            | `block-no-verify.sh` | Blocks `git commit --no-verify` so pre-commit hooks always run.                                                                                                                                                                                                                                                                                                                                                |
 | PostToolUse | `Write` or `Edit` tool | `post-write-lint.sh` | Auto-fixes ruff violations on `.py` writes; auto-formats then prose-lints `.md` writes; runs shellcheck on `.sh` writes; auto-formats `.toml` writes with taplo; auto-fixes then lints `.yaml`/`.yml` writes with yamlfix + yamllint; runs actionlint on writes to `.github/workflows/` files. Type checking is handled live by the `basedpyright-lsp` plugin — no need to re-run basedpyright on every write. |
 
-ruff auto-fixes what it can; unfixable violations still block the edit. mdformat auto-formats in place. proselint findings are warnings only — they never block an edit or commit.
+ruff auto-fixes what it can; unfixable violations still block the edit. prettier auto-formats in place.
 
 ## basedpyright LSP plugin
 
@@ -25,16 +25,15 @@ Git hooks are managed by [prek](https://github.com/peterdemin/prek), a fast pre-
 
 ### Pre-commit
 
-| Hook | Behaviour |
-|---|---|
-| `ruff` | Auto-fixes staged `.py` files; unfixable violations block the commit |
-| `basedpyright` | Runs basedpyright (blocking) on all `.py` files |
-| `mdformat` | Auto-formats staged `.md` files in place |
-| `shellcheck` | Runs shellcheck (blocking) on staged `.sh` files |
-| `taplo` | Auto-formats staged `.toml` files in place |
-| `yamllint` | Auto-fixes staged `.yaml`/`.yml` files with yamlfix, then lints with yamllint (blocking) |
-| `actionlint` | Lints staged `.github/workflows/` files with actionlint (blocking) |
-| `proselint` | Runs proselint (warn only) on staged `.md` files — never blocks a commit |
+| Hook           | Behaviour                                                                                |
+| -------------- | ---------------------------------------------------------------------------------------- |
+| `ruff`         | Auto-fixes staged `.py` files; unfixable violations block the commit                     |
+| `basedpyright` | Runs basedpyright (blocking) on all `.py` files                                          |
+| `prettier`     | Auto-formats staged `.md` files in place                                                 |
+| `shellcheck`   | Runs shellcheck (blocking) on staged `.sh` files                                         |
+| `taplo`        | Auto-formats staged `.toml` files in place                                               |
+| `yamllint`     | Auto-fixes staged `.yaml`/`.yml` files with yamlfix, then lints with yamllint (blocking) |
+| `actionlint`   | Lints staged `.github/workflows/` files with actionlint (blocking)                       |
 
 If a basedpyright or unfixable ruff error blocks a commit, fix it manually:
 
@@ -64,25 +63,23 @@ uv run prek install -t pre-commit -t post-merge -t post-checkout
 
 ### Post-merge / post-checkout
 
-| Hook | Behaviour |
-|---|---|
+| Hook      | Behaviour                                                                                            |
+| --------- | ---------------------------------------------------------------------------------------------------- |
 | `uv-sync` | Runs `uv sync` if `uv.lock` changed (fires on `git pull`, `git merge`, `git checkout`, `git switch`) |
 
 ## CI enforcement (GitHub Actions)
 
 The `.github/workflows/lint.yml` workflow is the mandatory gate — it runs on every push and pull request to any branch. Even if a developer skips local hook setup, CI will catch lint and formatting issues before code can land.
 
-| Check | Behaviour |
-|---|---|
-| `ruff check` | Blocking — fails the workflow on any violation |
-| `basedpyright` | Blocking — fails the workflow on any type error |
-| `mdformat --check` | Blocking — fails if any Markdown file isn't formatted (verify mode, no rewrite) |
-| `pytest` | Blocking — fails the workflow on any test failure |
-| `shellcheck` | Blocking — fails the workflow on any shell script violation |
-| `taplo lint` | Blocking — fails if any TOML file has lint errors |
-| `yamllint` | Blocking — fails if any YAML file has lint errors |
-| `actionlint` | Blocking — fails if any GitHub Actions workflow has lint errors |
-
-proselint is **not** run in CI — it remains a local-only tool (Claude Code hook and git pre-commit).
+| Check              | Behaviour                                                                       |
+| ------------------ | ------------------------------------------------------------------------------- |
+| `ruff check`       | Blocking — fails the workflow on any violation                                  |
+| `basedpyright`     | Blocking — fails the workflow on any type error                                 |
+| `prettier --check` | Blocking — fails if any Markdown file isn't formatted (verify mode, no rewrite) |
+| `pytest`           | Blocking — fails the workflow on any test failure                               |
+| `shellcheck`       | Blocking — fails the workflow on any shell script violation                     |
+| `taplo lint`       | Blocking — fails if any TOML file has lint errors                               |
+| `yamllint`         | Blocking — fails if any YAML file has lint errors                               |
+| `actionlint`       | Blocking — fails if any GitHub Actions workflow has lint errors                 |
 
 Local hooks remain the fast feedback loop for developers; CI is the enforcement backstop.

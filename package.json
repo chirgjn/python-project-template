@@ -1,0 +1,10 @@
+{
+  "name": "python-project-template",
+  "private": true,
+  "devDependencies": {
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "pnpm": ">=10"
+  }
+}

@@ -10,15 +10,15 @@ The 7-tier palette applies to `graph`/`flowchart` diagrams via `style` declarati
 
 Apply by **what a node does**, not which branch it's on. All tiers are visually distinct from the `#0d1117` background. Text flips from black to white between tiers 2 and 3.
 
-| Tier | Role | `style` declaration |
-|------|------|---------------------|
-| 1 | Input / entry | `fill:#e0e0e0,stroke:#ffffff,color:#000000` |
-| 2 | Phase / section | `fill:#b0b0b0,stroke:#d0d0d0,color:#000000` |
-| 3 | Transform / action | `fill:#808080,stroke:#a8a8a8,color:#ffffff` |
-| 4 | Decision / control flow | `fill:#585858,stroke:#888888,color:#ffffff` |
-| 5 | Output / result | `fill:#404040,stroke:#686868,color:#ffffff` |
-| 6 | Annotation / secondary | `fill:#282828,stroke:#484848,color:#ffffff` |
-| 7 | Terminal / endpoint | `fill:#1c1c1c,stroke:#383838,color:#ffffff` |
+| Tier | Role                    | `style` declaration                         |
+| ---- | ----------------------- | ------------------------------------------- |
+| 1    | Input / entry           | `fill:#e0e0e0,stroke:#ffffff,color:#000000` |
+| 2    | Phase / section         | `fill:#b0b0b0,stroke:#d0d0d0,color:#000000` |
+| 3    | Transform / action      | `fill:#808080,stroke:#a8a8a8,color:#ffffff` |
+| 4    | Decision / control flow | `fill:#585858,stroke:#888888,color:#ffffff` |
+| 5    | Output / result         | `fill:#404040,stroke:#686868,color:#ffffff` |
+| 6    | Annotation / secondary  | `fill:#282828,stroke:#484848,color:#ffffff` |
+| 7    | Terminal / endpoint     | `fill:#1c1c1c,stroke:#383838,color:#ffffff` |
 
 ### Accent Styles (Tokyo Night)
 
@@ -26,15 +26,15 @@ Accent colours are applied as **stroke-only on top of a standard grayscale tier 
 
 **Priority order:** when you need N accent colours and no role fits, always take the first N from this list so diagrams stay consistent.
 
-| Priority | Colour | Role | Example `style` declaration |
-|----------|--------|------|-----------------------------|
-| 1 | `#f7768e` | Error / dead-end | `fill:#585858,stroke:#f7768e,color:#ffffff` |
-| 2 | `#e0af68` | Warning / highlighted | `fill:#585858,stroke:#e0af68,color:#ffffff` |
-| 3 | `#9ece6a` | Success / positive | `fill:#585858,stroke:#9ece6a,color:#ffffff` |
-| 4 | `#7aa2f7` | Info / in-progress | `fill:#585858,stroke:#7aa2f7,color:#ffffff` |
-| 5 | `#bb9af7` | Purple / categorical | `fill:#585858,stroke:#bb9af7,color:#ffffff` |
-| 6 | `#73daca` | Teal / neutral | `fill:#585858,stroke:#73daca,color:#ffffff` |
-| 7 | `#ff9e64` | Orange / caution | `fill:#585858,stroke:#ff9e64,color:#ffffff` |
+| Priority | Colour    | Role                  | Example `style` declaration                 |
+| -------- | --------- | --------------------- | ------------------------------------------- |
+| 1        | `#f7768e` | Error / dead-end      | `fill:#585858,stroke:#f7768e,color:#ffffff` |
+| 2        | `#e0af68` | Warning / highlighted | `fill:#585858,stroke:#e0af68,color:#ffffff` |
+| 3        | `#9ece6a` | Success / positive    | `fill:#585858,stroke:#9ece6a,color:#ffffff` |
+| 4        | `#7aa2f7` | Info / in-progress    | `fill:#585858,stroke:#7aa2f7,color:#ffffff` |
+| 5        | `#bb9af7` | Purple / categorical  | `fill:#585858,stroke:#bb9af7,color:#ffffff` |
+| 6        | `#73daca` | Teal / neutral        | `fill:#585858,stroke:#73daca,color:#ffffff` |
+| 7        | `#ff9e64` | Orange / caution      | `fill:#585858,stroke:#ff9e64,color:#ffffff` |
 
 **Rules:**
 
@@ -45,11 +45,11 @@ Accent colours are applied as **stroke-only on top of a standard grayscale tier 
 
 ### `sequenceDiagram` rect backgrounds (tiers 4–6 only)
 
-| Tier | Role | `rect rgb(...)` |
-|------|------|-----------------|
-| 4 | Decision / control flow | `rect rgb(88, 88, 88)` |
-| 5 | Output / result | `rect rgb(64, 64, 64)` |
-| 6 | Annotation / secondary | `rect rgb(40, 40, 40)` |
+| Tier | Role                    | `rect rgb(...)`        |
+| ---- | ----------------------- | ---------------------- |
+| 4    | Decision / control flow | `rect rgb(88, 88, 88)` |
+| 5    | Output / result         | `rect rgb(64, 64, 64)` |
+| 6    | Annotation / secondary  | `rect rgb(40, 40, 40)` |
 
 Tiers 1–3 and 7 are not used in `sequenceDiagram` rect blocks — tiers 1–3 are too light to provide useful contrast as region backgrounds against node fills, and tier 7 is too close to the `#0d1117` canvas background.
 

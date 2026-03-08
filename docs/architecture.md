@@ -2,7 +2,7 @@
 
 Current layout and responsibilities of the `src/` tree. Update this document when modules are added, renamed, or have their responsibilities changed.
 
-______________________________________________________________________
+---
 
 ## Source Layout
 
@@ -24,7 +24,7 @@ tests/
   test_io.py          # Unit — I/O pipeline
 ```
 
-______________________________________________________________________
+---
 
 ## Module Dependencies
 
@@ -49,23 +49,23 @@ graph TD
 
 **Rule:** `config` ← `transforms` ← `io`. No upward or lateral imports. `__init__` re-exports all three but adds no logic.
 
-______________________________________________________________________
+---
 
 ## Conventions
 
-| Convention | Rule |
-| ------------------ | -------------------------------------------------------------------------------------------------- |
-| Naming | Do not shadow Python builtins (`filter`, `map`, `list`, `id`, etc.) |
-| Type hints | Annotate all function signatures and dataclass fields |
-| Boolean checks | `if flag:` not `if flag == True:` |
-| String splitting | Always `split(sep, maxsplit=1)` when unpacking into two variables |
-| Demo code | Scripts go in `scripts/`, not inside library modules |
-| Test output | Suppress `print()` per-test with `@patch('builtins.print')` — never redirect `sys.stdout` globally |
-| Test assertions | `assertIsInstance` not `assertTrue(isinstance(...))` |
+| Convention       | Rule                                                                                               |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| Naming           | Do not shadow Python builtins (`filter`, `map`, `list`, `id`, etc.)                                |
+| Type hints       | Annotate all function signatures and dataclass fields                                              |
+| Boolean checks   | `if flag:` not `if flag == True:`                                                                  |
+| String splitting | Always `split(sep, maxsplit=1)` when unpacking into two variables                                  |
+| Demo code        | Scripts go in `scripts/`, not inside library modules                                               |
+| Test output      | Suppress `print()` per-test with `@patch('builtins.print')` — never redirect `sys.stdout` globally |
+| Test assertions  | `assertIsInstance` not `assertTrue(isinstance(...))`                                               |
 
 See `docs/python-guide/` for full rationale and examples.
 
-______________________________________________________________________
+---
 
 ## Public API
 

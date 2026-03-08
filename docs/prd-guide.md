@@ -2,7 +2,7 @@
 
 The PRD lives in `assets/prd.md` — a symlink to the current versioned file (`assets/prd_v{major}.{minor}.md`).
 
-______________________________________________________________________
+---
 
 ## How to update the PRD
 
@@ -21,7 +21,7 @@ ______________________________________________________________________
 
 **Do not** manually rename the PRD file, recreate it, or touch the symlink — the bump script handles all of that atomically.
 
-______________________________________________________________________
+---
 
 ## PRD file format
 
@@ -34,15 +34,15 @@ The PRD file should open with a header block followed by a version history table
 **Date:** January 1, 2026
 **Status:** Active
 
-______________________________________________________________________
+---
 
 ## Version History
 
-| Version | Date | Author | Changes |
-| ------- | ---- | ------ | ------- |
+| Version | Date            | Author | Changes         |
+| ------- | --------------- | ------ | --------------- |
 | 1.0     | January 1, 2026 | Author | Initial version |
 
-______________________________________________________________________
+---
 
 ## 1. Overview
 
@@ -51,7 +51,7 @@ ______________________________________________________________________
 
 The bump script locates the `| Version | Date` table header to insert new rows. Keep this format intact.
 
-______________________________________________________________________
+---
 
 ## Creating the initial PRD
 
@@ -66,7 +66,7 @@ ______________________________________________________________________
    git commit -m "docs: add initial PRD v1.0"
    ```
 
-______________________________________________________________________
+---
 
 ## Bump script behaviour
 

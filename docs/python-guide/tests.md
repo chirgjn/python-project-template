@@ -18,7 +18,7 @@ pythonpath = ["src", "scripts"]
 
 With `pythonpath` set, test files can import project modules directly with no path manipulation.
 
-______________________________________________________________________
+---
 
 ## Suppress print output per-test, not globally
 
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     unittest.main(verbosity=2)
 ```
 
-______________________________________________________________________
+---
 
 ## Write precise assertions
 
@@ -57,7 +57,7 @@ self.assertIsInstance(value, int)
 
 Prefer `assertIsInstance` over `assertTrue(isinstance(...))` — it produces a better failure message.
 
-______________________________________________________________________
+---
 
 ## Use `self.assertIsInstance`, not bare `assert isinstance`
 
@@ -71,7 +71,7 @@ assert isinstance(result, list)
 self.assertIsInstance(result, list)
 ```
 
-______________________________________________________________________
+---
 
 ## Don't let `finally` swallow test failures
 
@@ -91,7 +91,7 @@ with tempfile.NamedTemporaryFile(delete=True) as f:
     self.assertEqual(result, expected)
 ```
 
-______________________________________________________________________
+---
 
 ## Keep imports at module level
 
@@ -111,7 +111,7 @@ class TestIO(unittest.TestCase):
         self.assertIsInstance(value, (int, np.integer))
 ```
 
-______________________________________________________________________
+---
 
 ## Annotate `@patch` mock parameters
 
@@ -131,7 +131,7 @@ def test_logs_warning(self, mock_print: MagicMock) -> None:
     ...
 ```
 
-______________________________________________________________________
+---
 
 ## Decorate `setUp` with `@override`
 
@@ -146,7 +146,7 @@ class TestMyModule(unittest.TestCase):
         ...
 ```
 
-______________________________________________________________________
+---
 
 ## Assign discarded return values to `_`
 

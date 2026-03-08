@@ -12,72 +12,72 @@ One-shot installers for every tool the project needs. Run them individually or a
 bash scripts/setup.sh
 ```
 
-| Script | Installs |
-|---|---|
-| `install-uv.sh` | [uv](https://docs.astral.sh/uv/) — Python package and environment manager |
-| `install-python.sh` | Python 3.14+ via mise → uv → Homebrew |
-| `install-deps.sh` | Project dependencies via `uv sync`; installs git hooks via prek |
-| `install-jq.sh` | [jq](https://jqlang.org) — JSON query tool |
-| `install-taplo.sh` | [taplo](https://taplo.tamasfe.dev) — TOML formatter/linter |
-| `install-yamllint.sh` | yamllint + yamlfix + actionlint (via `uv sync`) |
-| `install-gh.sh` | [gh](https://cli.github.com) — GitHub CLI |
-| `install-pnpm.sh` | [pnpm](https://pnpm.io) — Node package manager |
-| `install-playwright-cli.sh` | playwright-cli — used for Mermaid diagram verification |
-| `install-claude-plugins.sh` | Claude Code plugins (superpowers, basedpyright-lsp, etc.) |
-| `install-skills.sh` | Claude Code skills (playwright-cli skill) |
-| `verify.sh` | Runs pytest, ruff, shellcheck, yamllint, actionlint to confirm setup |
+| Script                      | Installs                                                                  |
+| --------------------------- | ------------------------------------------------------------------------- |
+| `install-uv.sh`             | [uv](https://docs.astral.sh/uv/) — Python package and environment manager |
+| `install-python.sh`         | Python 3.14+ via mise → uv → Homebrew                                     |
+| `install-deps.sh`           | Project dependencies via `uv sync`; installs git hooks via prek           |
+| `install-jq.sh`             | [jq](https://jqlang.org) — JSON query tool                                |
+| `install-taplo.sh`          | [taplo](https://taplo.tamasfe.dev) — TOML formatter/linter                |
+| `install-yamllint.sh`       | yamllint + yamlfix + actionlint (via `uv sync`)                           |
+| `install-gh.sh`             | [gh](https://cli.github.com) — GitHub CLI                                 |
+| `install-pnpm.sh`           | [pnpm](https://pnpm.io) — Node package manager                            |
+| `install-prettier.sh`       | [prettier](https://prettier.io) — Markdown formatter                      |
+| `install-playwright-cli.sh` | playwright-cli — used for Mermaid diagram verification                    |
+| `install-claude-plugins.sh` | Claude Code plugins (superpowers, basedpyright-lsp, etc.)                 |
+| `install-skills.sh`         | Claude Code skills (playwright-cli skill)                                 |
+| `verify.sh`                 | Runs pytest, ruff, shellcheck, yamllint, actionlint to confirm setup      |
 
 ### Linter/hook scripts (`scripts/tools/`)
 
 Wrappers invoked by Claude Code hooks and git pre-commit hooks:
 
-| Script | What it does |
-|---|---|
-| `ruff-fix.sh` | Auto-fix then lint Python with ruff |
-| `basedpyright-lint.sh` | Type-check with basedpyright |
-| `mdformat-fix.sh` | Format Markdown with mdformat |
-| `shellcheck-lint.sh` | Lint shell scripts with shellcheck |
-| `taplo-fmt.sh` | Format TOML files with taplo |
-| `yamllint-fmt.sh` | Auto-fix then lint YAML with yamlfix + yamllint |
-| `actionlint-lint.sh` | Lint GitHub Actions workflows with actionlint |
-| `proselint-warn.sh` | Prose-lint Markdown (warn only, never blocks) |
-| `post-write-lint.sh` | Claude Code PostToolUse hook — dispatches to the above by file type |
-| `block-no-verify.sh` | Claude Code PreToolUse hook — blocks `git commit --no-verify` |
+| Script                       | What it does                                                          |
+| ---------------------------- | --------------------------------------------------------------------- |
+| `ruff-fix.sh`                | Auto-fix then lint Python with ruff                                   |
+| `basedpyright-lint.sh`       | Type-check with basedpyright                                          |
+| `prettier-fix.sh`            | Format Markdown with prettier                                         |
+| `shellcheck-lint.sh`         | Lint shell scripts with shellcheck                                    |
+| `taplo-fmt.sh`               | Format TOML files with taplo                                          |
+| `yamllint-fmt.sh`            | Auto-fix then lint YAML with yamlfix + yamllint                       |
+| `actionlint-lint.sh`         | Lint GitHub Actions workflows with actionlint                         |
+| `post-write-lint.sh`         | Claude Code PostToolUse hook — dispatches to the above by file type   |
+| `block-no-verify.sh`         | Claude Code PreToolUse hook — blocks `git commit --no-verify`         |
 | `uv-sync-if-lock-changed.sh` | Post-merge/post-checkout hook — runs `uv sync` when `uv.lock` changes |
 
 ### Config files
 
-| File | Purpose |
-|---|---|
-| `pyproject.toml` | Project metadata + all dev deps pre-wired (ruff, basedpyright, pytest, prek, mdformat, shellcheck-py, yamllint, yamlfix, actionlint-py, proselint) |
-| `.pre-commit-config.yaml` | prek git hook definitions (pre-commit, post-merge, post-checkout) |
-| `.claude/settings.json` | Claude Code hooks and enabled plugins |
-| `.mise.toml` | Pinned taplo version |
-| `.yamllint.yaml` | yamllint config (120-char line limit, GHA truthy ignore) |
-| `pyrightconfig.json` | basedpyright include/exclude (prevents scanning `.venv/`) |
+| File                      | Purpose                                                                                                                       |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `pyproject.toml`          | Project metadata + all dev deps pre-wired (ruff, basedpyright, pytest, prek, shellcheck-py, yamllint, yamlfix, actionlint-py) |
+| `.pre-commit-config.yaml` | prek git hook definitions (pre-commit, post-merge, post-checkout)                                                             |
+| `.claude/settings.json`   | Claude Code hooks and enabled plugins                                                                                         |
+| `.mise.toml`              | Pinned taplo version                                                                                                          |
+| `.yamllint.yaml`          | yamllint config (120-char line limit, GHA truthy ignore)                                                                      |
+| `pyrightconfig.json`      | basedpyright include/exclude (prevents scanning `.venv/`)                                                                     |
 
 ### Docs (`docs/`)
 
-| Doc | Contents |
-|---|---|
-| `project-setup.md` | Step-by-step setup guide |
-| `hooks.md` | Claude Code hooks, git hooks, and CI enforcement |
-| `basedpyright.md` | Type checking config, error fixing, baseline usage |
-| `commands.md` | Quick reference for common commands |
-| `pr-process.md` | PR artefact paths at a glance |
-| `pr-review-guide.md` | Full review workflow — rounds, frontmatter, artefacts, checklists |
-| `python-guide/index.md` | Python conventions index |
-| `python-guide/naming.md` | Avoid shadowing builtins |
-| `python-guide/type-hints.md` | Annotating signatures and dataclass fields |
-| `python-guide/style.md` | Boolean comparisons, string splitting |
-| `python-guide/module-structure.md` | Separating concerns across modules |
-| `python-guide/tests.md` | Assertions, mocks, imports, cleanup, coverage |
-| `python-guide-uv.md` | uv invocation patterns and antipatterns |
-| `architecture.md` | Module layout template, dependency rules, and conventions |
-| `prd-guide.md` | PRD update workflow and bump script usage |
-| `plans-guide.md` | When and how to write implementation plans |
-| `mermaid-guidelines.md` | Diagram palette, syntax rules, and verification workflow |
-| `playwright-cli-guidelines.md` | Session artifact cleanup |
+| Doc                                | Contents                                                          |
+| ---------------------------------- | ----------------------------------------------------------------- |
+| `project-setup.md`                 | Step-by-step setup guide                                          |
+| `hooks.md`                         | Claude Code hooks, git hooks, and CI enforcement                  |
+| `basedpyright.md`                  | Type checking config, error fixing, baseline usage                |
+| `commands.md`                      | Quick reference for common commands                               |
+| `pr-process.md`                    | PR artefact paths at a glance                                     |
+| `pr-review-guide.md`               | Full review workflow — rounds, frontmatter, artefacts, checklists |
+| `python-guide/index.md`            | Python conventions index                                          |
+| `python-guide/naming.md`           | Avoid shadowing builtins                                          |
+| `python-guide/type-hints.md`       | Annotating signatures and dataclass fields                        |
+| `python-guide/style.md`            | Boolean comparisons, string splitting                             |
+| `python-guide/module-structure.md` | Separating concerns across modules                                |
+| `python-guide/tests.md`            | Assertions, mocks, imports, cleanup, coverage                     |
+| `python-guide-uv.md`               | uv invocation patterns and antipatterns                           |
+| `architecture.md`                  | Module layout template, dependency rules, and conventions         |
+| `prd-guide.md`                     | PRD update workflow and bump script usage                         |
+| `plans-guide.md`                   | When and how to write implementation plans                        |
+| `mermaid-guidelines.md`            | Diagram palette, syntax rules, and verification workflow          |
+| `playwright-cli-guidelines.md`     | Session artifact cleanup                                          |
 
 ### `scripts/bump_prd.py`
 

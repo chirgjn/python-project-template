@@ -2,7 +2,7 @@
 
 Step-by-step setup for a new developer or agent. Follow in order.
 
-______________________________________________________________________
+---
 
 ## 1. uv
 
@@ -12,7 +12,7 @@ ______________________________________________________________________
 bash scripts/setup/install-uv.sh
 ```
 
-______________________________________________________________________
+---
 
 ## 2. Python 3.14+
 
@@ -22,7 +22,7 @@ This project requires Python 3.14 or later. The version is pinned in `.python-ve
 bash scripts/setup/install-python.sh
 ```
 
-______________________________________________________________________
+---
 
 ## 3. Install project dependencies
 
@@ -34,19 +34,18 @@ uv sync
 
 This creates `.venv/` and installs all runtime and dev dependencies, including:
 
-| Package | Purpose |
-|---|---|
-| `pytest` | Tests |
-| `ruff` | Python linting / auto-fix |
-| `mdformat` | Markdown formatting |
-| `proselint` | Markdown prose linting |
-| `basedpyright` | Static type checking (LSP) |
-| `shellcheck-py` | Shell script linting |
-| `prek` | Pre-commit hook framework |
-| `yamllint`, `yamlfix` | YAML linting / auto-fix |
-| `actionlint-py` | GitHub Actions workflow linting |
+| Package               | Purpose                         |
+| --------------------- | ------------------------------- |
+| `pytest`              | Tests                           |
+| `ruff`                | Python linting / auto-fix       |
+| `prettier`            | Markdown formatting (via pnpm)  |
+| `basedpyright`        | Static type checking (LSP)      |
+| `shellcheck-py`       | Shell script linting            |
+| `prek`                | Pre-commit hook framework       |
+| `yamllint`, `yamlfix` | YAML linting / auto-fix         |
+| `actionlint-py`       | GitHub Actions workflow linting |
 
-______________________________________________________________________
+---
 
 ## 4. jq
 
@@ -56,7 +55,7 @@ ______________________________________________________________________
 bash scripts/setup/install-jq.sh
 ```
 
-______________________________________________________________________
+---
 
 ## 5. taplo
 
@@ -68,7 +67,7 @@ The pinned version lives in `.mise.toml` and is the single source of truth for l
 bash scripts/setup/install-taplo.sh
 ```
 
-______________________________________________________________________
+---
 
 ## 6. actionlint
 
@@ -80,7 +79,7 @@ actionlint is installed as a Python wrapper (`actionlint-py`) via `uv sync` — 
 uv run actionlint
 ```
 
-______________________________________________________________________
+---
 
 ## 7. gh (GitHub CLI)
 
@@ -115,7 +114,7 @@ Verify authentication:
 gh auth status
 ```
 
-______________________________________________________________________
+---
 
 ## 8. Claude Code plugins
 
@@ -138,7 +137,7 @@ claude plugin marketplace add chirgjn/claude-code-plugins --scope project
 claude plugin install basedpyright-lsp@cj-cc-plugins --scope project
 ```
 
-______________________________________________________________________
+---
 
 ## 9. Skills
 
@@ -168,13 +167,13 @@ Then install the binary:
 pnpm add -g playwright-cli
 ```
 
-______________________________________________________________________
+---
 
 ## Hooks
 
 Linting hooks fire automatically during Claude Code sessions. See `docs/hooks.md` for what runs, when, and how to unblock yourself if ruff fails.
 
-______________________________________________________________________
+---
 
 ## Verify everything
 

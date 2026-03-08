@@ -36,13 +36,16 @@ jobs:
           uv run basedpyright 2>&1 | tee /tmp/basedpyright.log
           echo "${PIPESTATUS[0]}" > /tmp/basedpyright.exitcode
 
-      - name: mdformat
+      - name: prettier (install)
+        run: pnpm install
+
+      - name: prettier
         if: always()
         continue-on-error: true
         shell: bash --noprofile --norc -o pipefail {0}
         run: |
-          uv run mdformat --check docs/ -- *.md 2>&1 | tee /tmp/mdformat.log
-          echo "${PIPESTATUS[0]}" > /tmp/mdformat.exitcode
+          scripts/tools/prettier-fix.sh --check 2>&1 | tee /tmp/prettier.log
+          echo "${PIPESTATUS[0]}" > /tmp/prettier.exitcode
 
       - name: pytest
         if: always()
@@ -119,7 +122,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
           FAILED=0
-          for check in ruff basedpyright mdformat pytest shellcheck yamllint actionlint taplo; do
+          for check in ruff basedpyright prettier pytest shellcheck yamllint actionlint taplo; do
             code=$(cat "/tmp/${check}.exitcode" 2>/dev/null || echo "?")
             if [ "$code" = "0" ]; then
               echo "| ${check} | :white_check_mark: pass |" >> "$GITHUB_STEP_SUMMARY"
@@ -130,7 +133,7 @@ jobs:
           done
 
           # Show output for failed checks
-          for check in ruff basedpyright mdformat pytest shellcheck yamllint actionlint taplo; do
+          for check in ruff basedpyright prettier pytest shellcheck yamllint actionlint taplo; do
             code=$(cat "/tmp/${check}.exitcode" 2>/dev/null || echo "?")
             if [ "$code" != "0" ]; then
               {

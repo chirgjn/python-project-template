@@ -2,7 +2,7 @@
 
 Design plans live in `docs/plans/{YYYY-MM-DD}-{topic}.md`. They are written before implementation begins and are never deleted — they record how decisions were made.
 
-______________________________________________________________________
+---
 
 ## When to write a plan
 
@@ -18,7 +18,7 @@ Skip a plan for:
 - Documentation-only changes
 - Single-file mechanical changes (rename, move, format)
 
-______________________________________________________________________
+---
 
 ## File naming
 
@@ -30,11 +30,11 @@ docs/plans/{YYYY-MM-DD}-{topic}.md
 - Topic is lowercase, hyphen-separated (`module-restructure`, `add-auth`, `migrate-db`)
 - One plan per feature or initiative — do not create separate design and implementation files unless the design phase is long enough to warrant its own artefact
 
-______________________________________________________________________
+---
 
 ## Plan structure
 
-```markdown
+````markdown
 # {Topic} Plan
 
 **Goal:** One sentence — what will be true when this is done.
@@ -43,11 +43,12 @@ ______________________________________________________________________
 
 **Tech Stack:** Languages, libraries, frameworks, tools involved.
 
-______________________________________________________________________
+---
 
 ### Task 1: {Short title}
 
 **Files:**
+
 - Create: `path/to/new_file.py`
 - Modify: `path/to/existing_file.py`
 
@@ -58,6 +59,7 @@ ______________________________________________________________________
 ```bash
 uv run pytest tests/ -v
 ```
+````
 
 Expected: {what success looks like}.
 
@@ -68,11 +70,11 @@ git add <files>
 git commit -m "feat: ..."
 ```
 
-______________________________________________________________________
+---
 
 ### Task 2: ...
 
-______________________________________________________________________
+---
 
 ## Risk Notes
 
@@ -81,10 +83,11 @@ ______________________________________________________________________
 
 ## Sequencing
 
-| Order | Task | Depends On |
-| ----- | ---- | ---------- |
-| 1 | Task 1 title | none |
-| 2 | Task 2 title | 1 |
+| Order | Task         | Depends On |
+| ----- | ------------ | ---------- |
+| 1     | Task 1 title | none       |
+| 2     | Task 2 title | 1          |
+
 ```
 
 ______________________________________________________________________
@@ -105,3 +108,4 @@ ______________________________________________________________________
 ## Plans are immutable history
 
 Once implementation starts, do not edit the plan to reflect what actually happened. If the implementation diverges from the plan, that is fine — the plan records the intent, not the outcome. Record divergences and actual decisions in the PR review artefacts (`docs/pr-reviews/`).
+```
