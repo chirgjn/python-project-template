@@ -55,3 +55,5 @@ Full reference: `docs/commands.md`
 | Keeping docs up to date after structural changes        | `docs/maintenance.md`                   |
 | Browsing architectural decisions and tool choices       | `docs/decisions/index.md`               |
 | Finding or tracking an active implementation plan       | `docs/plans/index.md`                   |
+| Finding or tracking a design doc                        | `docs/designs/index.md`                 |
+| Finding or tracking a spec                              | `docs/specs/index.md`                   |

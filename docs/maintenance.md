@@ -42,6 +42,7 @@ Before writing a convention, ask: "Can a tool enforce this instead?"
 | `AGENTS.md`                  | Anything that changes how to navigate or work in this repo                                      |
 | `docs/decisions/index.md`    | A new ADR is written — add a row to the index                                                   |
 | `docs/plans/index.md`        | A plan is created or archived — update the index row                                            |
+| `docs/designs/index.md`      | A design doc is created, approved, or archived — update the index row                           |
 | `docs/specs/index.md`        | A spec changes status (in-progress → live) or is added — update the index                       |
 | `docs/decisions/<nnn>-*.md`  | The decision it records is superseded — set status to `Superseded by [NNN]` and write a new ADR |
 
