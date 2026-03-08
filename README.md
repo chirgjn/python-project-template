@@ -1,5 +1,7 @@
 # python-project-template
 
+> **AI agent?** Read [AGENTS.md](AGENTS.md) first.
+
 Generic setup scaffolding for Python projects using [uv](https://docs.astral.sh/uv/). Extracted for reuse across projects.
 
 ## What's included
@@ -58,26 +60,44 @@ Wrappers invoked by Claude Code hooks and git pre-commit hooks:
 
 ### Docs (`docs/`)
 
+**Reference guides**
+
 | Doc                                | Contents                                                          |
 | ---------------------------------- | ----------------------------------------------------------------- |
 | `project-setup.md`                 | Step-by-step setup guide                                          |
 | `hooks.md`                         | Claude Code hooks, git hooks, and CI enforcement                  |
 | `basedpyright.md`                  | Type checking config, error fixing, baseline usage                |
 | `commands.md`                      | Quick reference for common commands                               |
+| `architecture.md`                  | Module layout template, dependency rules, and conventions         |
 | `pr-process.md`                    | PR artefact paths at a glance                                     |
 | `pr-review-guide.md`               | Full review workflow — rounds, frontmatter, artefacts, checklists |
-| `python-guide/index.md`            | Python conventions index                                          |
-| `python-guide/naming.md`           | Avoid shadowing builtins                                          |
-| `python-guide/type-hints.md`       | Annotating signatures and dataclass fields                        |
-| `python-guide/style.md`            | Boolean comparisons, string splitting                             |
-| `python-guide/module-structure.md` | Separating concerns across modules                                |
-| `python-guide/tests.md`            | Assertions, mocks, imports, cleanup, coverage                     |
-| `python-guide-uv.md`               | uv invocation patterns and antipatterns                           |
-| `architecture.md`                  | Module layout template, dependency rules, and conventions         |
 | `prd-guide.md`                     | PRD update workflow and bump script usage                         |
 | `plans-guide.md`                   | When and how to write implementation plans                        |
 | `mermaid-guidelines.md`            | Diagram palette, syntax rules, and verification workflow          |
 | `playwright-cli-guidelines.md`     | Session artifact cleanup                                          |
+| `maintenance.md`                   | Update triggers and auditing checklist for keeping docs current   |
+
+**Python conventions (`python-guide/`)**
+
+| Doc                                | Contents                                      |
+| ---------------------------------- | --------------------------------------------- |
+| `python-guide/index.md`            | Python conventions index                      |
+| `python-guide/naming.md`           | Avoid shadowing builtins                      |
+| `python-guide/type-hints.md`       | Annotating signatures and dataclass fields    |
+| `python-guide/style.md`            | Boolean comparisons, string splitting         |
+| `python-guide/module-structure.md` | Separating concerns across modules            |
+| `python-guide/tests.md`            | Assertions, mocks, imports, cleanup, coverage |
+| `python-guide-uv.md`               | uv invocation patterns and antipatterns       |
+
+**Decisions, plans, and specs**
+
+| Directory        | Contents                                                                  |
+| ---------------- | ------------------------------------------------------------------------- |
+| `decisions/`     | Architectural Decision Records — tool choices and non-obvious constraints |
+| `plans/`         | Active implementation plans (archived to `archive/plans/` after completion) |
+| `designs/`       | Design docs — problem, alternatives, recommendation (pre-approval)        |
+| `specs/`         | Exhaustive specifications (`live/` and `in-progress/`)                    |
+| `archive/`       | Post-merge artifacts — completed plans, deprecated designs, old specs     |
 
 ### `scripts/bump_prd.py`
 
