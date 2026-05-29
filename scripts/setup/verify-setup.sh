@@ -45,6 +45,23 @@ if [[ ! -d .venv ]]; then
     fail ".venv not found — run scripts/setup/install-deps.sh first"
 fi
 
+info "checking git hooks..."
+for hook in pre-commit post-merge post-checkout; do
+    hook_path="${REPO_ROOT}/.git/hooks/${hook}"
+    if [[ ! -x "$hook_path" ]]; then
+        fail "git hook '${hook}' not installed — run: uv run prek install -t pre-commit -t post-merge -t post-checkout"
+    fi
+done
+ok "git hooks installed (prek)"
+
+info "checking Claude Code hook scripts..."
+for script in scripts/tools/block-no-verify.sh scripts/tools/post-write-lint.sh; do
+    if [[ ! -x "${REPO_ROOT}/${script}" ]]; then
+        fail "${script} is not executable — run: chmod +x ${script}"
+    fi
+done
+ok "Claude Code hook scripts executable"
+
 info "running tests..."
 if ! uv run pytest tests/ -q; then
     fail "Tests failed.

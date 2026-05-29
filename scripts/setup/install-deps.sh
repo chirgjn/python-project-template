@@ -26,5 +26,7 @@ ok "dependencies installed"
 
 # --- Install git hooks via prek ---
 info "installing git hooks via prek..."
+# Unset local core.hooksPath if set — prek refuses to install with it active
+git config --unset-all --local core.hooksPath 2>/dev/null || true
 uv run prek install -t pre-commit -t post-merge -t post-checkout
 ok "git hooks installed (prek)"
